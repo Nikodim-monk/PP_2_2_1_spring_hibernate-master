@@ -35,16 +35,27 @@ public class MainApp {
         }
 
         try {
-            User user = userService.getUser("Model2", 500);
+            User user = userService.getUser("Model2", 200);
             System.out.println("Id = " + user.getId());
             System.out.println("First Name = " + user.getFirstName());
             System.out.println("Last Name = " + user.getLastName());
             System.out.println("Email = " + user.getEmail());
-            System.out.println("Model = " + user.getCar().getModel());
-            System.out.println("Series = " + user.getCar().getSeries());
         } catch (NoResultException e) {
             System.out.println("Нет такого пользователя");
         }
+
+        List<Car> cars = userService.listCars();
+        for(Car car:cars) {
+            System.out.println("Model = " + car.getModel()+"  Series = " + car.getSeries());
+        }
+
+        try {
+            Car car = userService.getCar("Model2", 200);
+            System.out.println(car);
+        } catch (NoResultException e) {
+            System.out.println("Нет такой машины");
+        }
+
         context.close();
     }
 }
