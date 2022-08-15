@@ -3,6 +3,7 @@ package hiber;
 import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
+import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,6 +16,7 @@ public class MainApp {
                 new AnnotationConfigApplicationContext(AppConfig.class);
 
         UserService userService = context.getBean(UserService.class);
+        CarService carService = context.getBean(CarService.class);
 
         User chel = null;
         for (int i = 1; i < 5; i++) {
@@ -44,13 +46,13 @@ public class MainApp {
             System.out.println("Нет такого пользователя");
         }
 
-        List<Car> cars = userService.listCars();
+        List<Car> cars = carService.listCars();
         for(Car car:cars) {
             System.out.println("Model = " + car.getModel()+"  Series = " + car.getSeries());
         }
 
         try {
-            Car car = userService.getCar("Model2", 200);
+            Car car = carService.getCar("Model2", 200);
             System.out.println(car);
         } catch (NoResultException e) {
             System.out.println("Нет такой машины");
